@@ -77,6 +77,7 @@
 	  
 	  <!-- <h3 class="m">Enter the Material (couple Material):</h3><br> -->
 	  <button class="button button1 B " id="moveButton"  >Material  </button>  
+	    <button onclick="displayPanel(0)" id="initialmass">Measure the initial mass of the sample </button>
 	  <!-- <button class="button button1 B " id="moveButton2"  onclick="toggleButtons()">Material 2</button> -->
 	  <button class="button button1 hidden B" id="moveButton3">Input Ball</button>
 	  <button class="button button1 hidden B" id="moveButton4" >Insert The Ball</button>
@@ -84,9 +85,20 @@
 	  <button class="button button1 hidden B" id="moveButton5" >pin on tribometer</button>
 	  <button class="button button1 hidden  B" id="moveButton6" >Input Load (10N)</button>
 	  <button class="button button1 hidden B" id="moveButton7" style="cursor: pointer;" >Start Rotation</button>
-	  <button class="button button1 hidden  B" id="moveButton8" >Show Result</button>
-	   
-				</div>	  
+	   <button onclick="displayPanel(1)" id="CleanSample">Clean sample</button>
+	     <button onclick="displayPanel(2)" id="MeasureMass">Measure the mass again </button>
+	  <button class="button button1 hidden  B" id="moveButton8" >Show Output</button>
+	  <button onclick="showDiv()" id="table">Show table</button>
+
+				</div>	
+				 <div class="panel-left" >
+      <img id="panelImage" class="hidden-image" src="..\simulation\calculationImg\initial.png" alt="Display Image" style="width: 300px; height: 300px;margin-left: 50px;"/>
+      <span class="panel-close" onclick="closePanel()">&times;</span>
+	  <div style="text-align: center; align-content: center; ">
+		<pre><center>
+	  <h1 id="hidetxt">                      Initial Image</h1></center></pre>
+	  </div>
+    </div>  
 			</section>
 
             <section class="main-section2 ">
@@ -95,10 +107,14 @@
                         PIN-ON-DISC TRIBOMETER
                     </h4>
                 </center>
-
+  <div class="panel-right" style="position:sticky;">
+      <h2 id="panelHeading">Volume loss method (Using Optical profilometry)</h2>
+      <p id="panelDescription"></p>
+    </div>
 
 				<div class="note-important">
     <strong>Important Note:</strong><br><br>
+	<b>Firsly press Material button</b>
    <b> Put the mouse pointer on different components to see details</b>
 
   </div>
@@ -3160,7 +3176,7 @@
 <g>
 	<g  >
 		
-			<image id="objectToMove"  class="moveable" x="1600" y="1000" id="material 1" data-name="material (Stainless Steel)" style="overflow:visible;" width="512" height="271" xlink:href="824E53CB.png"  ></image>
+			<image id="objectToMove"  class="discImage" class="moveable" x="1600" y="1000" id="material 1" data-name="material (Stainless Steel)" style="overflow:visible;" width="512" height="271" xlink:href="..\simulation\disc\1-1.png"  ></image>
 
 	</g>
 </g>
@@ -3276,7 +3292,7 @@
 <path class="st1" d="M1344,1153"/>
 <g>
 	<g>
-		<image  id="objectToMove3" id="ball" data-name="Ball" class="moveable3" style="overflow:visible;" width="23" height="23" xlink:href="824E53C6.png"  transform="matrix(1 0 0 1 1864.5 979.5)">
+		<image  id="objectToMove3" id="ball" data-name="Ball diameter:6mm" class="moveable3" style="overflow:visible;" width="23" height="23" xlink:href="824E53C6.png"  transform="matrix(1 0 0 1 1864.5 979.5)">
 		</image>
 	</g>
 </g>
@@ -3289,35 +3305,69 @@
 </svg>
 
 <h1 id="out" style="margin-left: 8px;">OUTPUT:</h1>
+<div id="myBox" style="display: none; margin-top: 20px; padding: 20px; background-color: #e6f7ff; border: 1px solid #91d5ff; border-radius: 8px;margin-top: 30px; text-align: center;">
+  <h2 style="color: red;">Results</h2>
+
+  <table style="margin: 0 auto; border-collapse: collapse; width: 95%; font-size: 17px;">
+    <thead style="background-color: #f0f0f0;">
+      <tr>
+        <th style="border: 1px solid #ccc; padding: 10px;">Test</th>
+        <th style="border: 1px solid #ccc; padding: 10px;">Ra (nm)</th>
+        <th style="border: 1px solid #ccc; padding: 10px;">d<sub>max</sub> (µm)</th>
+        <th style="border: 1px solid #ccc; padding: 10px;">COF</th>
+        <th style="border: 1px solid #ccc; padding: 10px;">Δm (g)</th>
+        <th style="border: 1px solid #ccc; padding: 10px;">Sp. W<sub>r</sub> (Mass Loss) (mm³N⁻¹m⁻¹)</th>
+        <th style="border: 1px solid #ccc; padding: 10px;">W<sub>v</sub> (mm³)</th>
+        <th style="border: 1px solid #ccc; padding: 10px;">Sp. W<sub>r</sub> (Volume Loss) (mm³N⁻¹m⁻¹)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="border: 1px solid #ccc; padding: 10px;">1</td>
+        <td style="border: 1px solid #ccc; padding: 10px;">28</td>
+        <td style="border: 1px solid #ccc; padding: 10px;">58</td>
+        <td style="border: 1px solid #ccc; padding: 10px;">0.40 ± 0.06</td>
+        <td style="border: 1px solid #ccc; padding: 10px;">0.011</td>
+        <td style="border: 1px solid #ccc; padding: 10px;">2.7 × 10<sup>−3</sup></td>
+        <td style="border: 1px solid #ccc; padding: 10px;">0.562</td>
+        <td style="border: 1px solid #ccc; padding: 10px;">1.1 × 10<sup>−3</sup></td>
+      </tr>
+    </tbody>
+  </table>
 </div>
 
 <!-- <div id="resultContainer">
 	<img id="material1Photo" src="co01.png" alt="Material 1">
 	<img id="material2Photo" src="co5.1.png" alt="Material 2">
 </div> -->
-<div id="resultSlider" style="display:none; text-align:center; margin-top: 30px;">
+<div id="resultSlider" style="display:none; text-align:center; margin-top: 0px; position:relative; height: 100px;">
+	   
     <h2>Wear Test Result</h2>
+	
     
-    <img id="slideImage" src="slide1.jpg" alt="Result Slide"
+    <img id="slideImage" src="slide5.jpg" alt="Result Slide"
          style="max-width:90%; height:auto; border:2px solid #ccc; border-radius:10px;
                 box-shadow:0 4px 12px rgba(0,0,0,0.2); margin:20px auto;">
 
     <!-- Description -->
-    <p id="slideDescription" style="max-width:90%; margin: 20px auto; font-size: 18px; color: #333;"></p>
+    <p id="slideDescription" style="max-width:90%; margin: 100px auto; font-size: 18px; color: #333;"></p>
 
     <!-- Next Button -->
-    <div style="margin-top: 10px;">
-        <button onclick="nextSlide()">Next ➡</button>
-    </div>
+  
 </div>
 
 
 
-     
+
+</section>
+<!-- this is changed code  -->
+
+   
+<!-- this is changed code  -->
 
 <script>
     const totalSlides = 5; // Update if you have more/less slides
-    let currentSlide = 1;
+    let currentSlide = 5;
 
     // Descriptions for each slide (index 0 = slide1, index 1 = slide2, etc.)
     const slideDescriptions = [
@@ -3325,13 +3375,13 @@
         "Slide 2: Mass loss method and initial weight measurement.",
         "Slide 3: Perform the test and measure post-test weight.",
         "Slide 4: Volume loss using wear track or profilometry.",
-        "Slide 5: Final results, conditions, and conclusions."
+        " Final results, graphs, and conclusions."
     ];
 
     // Show result button click
     document.getElementById("moveButton8").addEventListener("click", () => {
         document.getElementById("resultSlider").style.display = "block";
-        currentSlide = 1;
+        currentSlide = 5;
         updateSlide();
     });
 
@@ -3350,10 +3400,17 @@
             alert("This is the last slide.");
         }
     }
+	function showDiv() {
+    document.getElementById("myBox").style.display = "block";
+	document.getElementById("panelImage").style.display="none";
+	document.getElementById("resultSlider").style.display = "none";
+	document.getElementsByClassName("panel-close").style.display = "none";
+  }
+  
 </script>
 
 
-			</section>
+		
 
 		</div>
 	</div>

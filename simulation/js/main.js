@@ -1,3 +1,63 @@
+const slideshowImage = document.querySelector('.discImage');
+// changedcode
+document.getElementById("CleanSample").style.display="none";
+document.getElementById("MeasureMass").style.display="none";
+document.getElementById("initialmass").style.display="none";
+document.getElementById("table").style.display="none";
+
+
+const slideshowImagesArray = [
+    '../simulation/disc/1-1.png',
+    '../simulation/disc/2-1.png',
+    '../simulation/disc/3-1.png',
+    '../simulation/disc/4-1.png',
+    '../simulation/disc/5-1.png',
+    '../simulation/disc/6-1.png',
+    '../simulation/disc/7-1.png',
+    '../simulation/disc/8-1.png',
+    '../simulation/disc/9-1.png',
+    '../simulation/disc/10-1.png',
+    '../simulation/disc/11-1.png',
+    '../simulation/disc/12-1.png',
+    '../simulation/disc/13-1.png',
+    '../simulation/disc/14-1.png',
+    '../simulation/disc/15-1.png',
+    '../simulation/disc/16-1.png',
+    '../simulation/disc/1-1.png',
+    '../simulation/disc/2-1.png',
+    '../simulation/disc/3-1.png',
+    '../simulation/disc/4-1.png',
+    '../simulation/disc/5-1.png',
+    '../simulation/disc/6-1.png',
+    '../simulation/disc/7-1.png',
+];
+
+slideshowImage.style.width = "150px";
+slideshowImage.style.height = "130px";
+slideshowImage.setAttribute('x', '1610');
+slideshowImage.setAttribute('y', '1002');
+
+let slideshowCurrentIndex = 0;
+let slideshowIntervalId;
+
+function updateSlideshowImage() {
+    slideshowCurrentIndex = (slideshowCurrentIndex + 1) % slideshowImagesArray.length;
+    slideshowImage.setAttribute('href', slideshowImagesArray[slideshowCurrentIndex]);
+}
+
+function startImageSlideshow() {
+    clearInterval(slideshowIntervalId);
+    slideshowIntervalId = setInterval(updateSlideshowImage, 2);
+
+    setTimeout(() => {
+        clearInterval(slideshowIntervalId);
+    }, 5000);
+}
+
+
+
+
+
 //Your JavaScript goes in here
 function openNav() {
     document.getElementById("mySidepanel").style.width = "500px";
@@ -17,12 +77,13 @@ const moveButton = document.getElementById('moveButton');
     const targetObject = document.getElementById('targetObject');
 
     function moveObject() {
+        document.getElementById("hidetxt").style.display="none";
         flag_material1=true;
         // Get the position of the target object
         const targetRect = targetObject.getBoundingClientRect();
         // const targetX = targetRect.left;
         // const targetY = targetRect.top;
-
+document.getElementById("initialmass").style.display="block";
         // Move the object to the target position
         objectToMove.style.transition = 'transform 2s ease'; // Add a smooth transition effect
         objectToMove.style.transform = `translate(-439px, -272px)`;
@@ -207,10 +268,12 @@ function stopAnimation() {
 // Add a click event listener to start the animation
 moveButton7.addEventListener('click', () => {
     startAnimation();
-    setTimeout(stopAnimation, 5000); // Stop after 5 seconds (5000 milliseconds)
+    setTimeout(stopAnimation, 5000); 
+    document.getElementById("CleanSample").style.display="block";// Stop after 5 seconds (5000 milliseconds)
+    document.getElementById("MeasureMass").style.display="block";
 });
 
-
+moveButton7.addEventListener('click', startImageSlideshow);
 // JavaScript logic
 // const material1Button = document.getElementById('moveButton');
 // const material2Button = document.getElementById('moveButton2');
@@ -221,6 +284,8 @@ const material2Photo = document.getElementById('material2Photo');
 
 // Function to show the result photo based on the choice of material
 function showResult() {
+    document.getElementById("table").style.display="block";
+        document.getElementById("panelImage").style.display="none";
     if (flag_material1) {
 
         resultContainer.style.display = 'block';
@@ -240,6 +305,7 @@ function showResult() {
         alert('Please select a material first.');
 
     }
+    
 }
 console.log(moveButton8.addEventListener('click', showResult)
 )
@@ -292,3 +358,55 @@ document.getElementById("moveButton7").addEventListener("click", function() {
 
 
 
+//   this is the new code 
+
+const items = [
+  {
+    title: "Mass loss method",
+    image: "../simulation/calculationImg/m1.png",
+    description: "m1 = 16.1445 g"
+  },
+  {
+    title: "Sample clean",
+    image: "../simulation/calculationImg/clean.png",
+    description: "Clean the sample from all the debris."
+  },
+  {
+    title: "Mass Comparison",
+    image: "../simulation/calculationImg/m2.png",
+    description: "m2 = 16.1350 g | Δm = 0.0095 g"
+  }
+];
+
+const panel = document.getElementById("contentPanel");
+const panelImg = document.getElementById("panelImage");
+const panelHeading = document.getElementById("panelHeading");
+const panelDesc = document.getElementById("panelDescription");
+
+function displayPanel(index) {
+  const selected = items[index];
+
+  // Hide image first
+  panelImg.classList.add("hidden-image");
+
+  // Set text immediately
+  panelHeading.textContent = selected.title;
+  panelDesc.textContent = selected.description;
+
+  // Small delay to allow class to apply before changing image
+  setTimeout(() => {
+    panelImg.src = selected.image;
+
+    // Once the new image loads, fade it in
+    panelImg.onload = () => {
+      panelImg.classList.remove("hidden-image");
+    };
+  }, 100);
+
+  // Show panel
+  panel.classList.remove("panel-hidden");
+}
+
+function closePanel() {
+  panel.classList.add("panel-hidden");
+}
