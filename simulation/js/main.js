@@ -414,3 +414,158 @@ document.getElementById("initialmassm1").style.display="block";
 function closePanel() {
   panel.classList.add("panel-hidden");
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+let selectedRPM = null;
+  let xImage = null;
+  let yImage = null;
+  let originalImage = null;
+
+  function selectRPM(rpm) {
+    selectedRPM = rpm;
+    document.getElementById("moveButton8").classList.remove("hidden");
+  }
+function showResult() {
+  selectedRPM = "25"; // fixed RPM
+  document.querySelectorAll('.materialPhoto').forEach(img => img.style.display = "none");
+
+  originalImage = document.querySelector('img[src="../simulation/output/out1.png"]');
+  xImage = document.querySelector('img[src="../simulation/output/out11.png"]');
+  yImage = document.querySelector('img[src="../simulation/output/out12.png"]');
+
+  showImage(originalImage); // Show original image by default
+  toggleButtons(true, true, false); // Enable X and Y profile buttons
+  document.getElementById("resultContainer").style.display = "block";
+}
+
+
+  function showImage(img) {
+    document.querySelectorAll('.materialPhoto').forEach(i => i.style.display = "none");
+    if (img) {
+      img.style.display = "block";
+      document.getElementById("imageLabel").innerHTML = `<b>${img.dataset.label}</b>`;
+      document.getElementById("imageDescription").innerText = img.dataset.desc;
+    }
+  }
+
+  function toggleButtons(xEnabled, yEnabled, origEnabled) {
+    document.getElementById("nextBtn").disabled = !xEnabled;
+    document.getElementById("prevBtn").disabled = !yEnabled;
+    document.getElementById("origBtn").disabled = !origEnabled;
+  }
+
+  document.getElementById("prevBtn").addEventListener("click", () => {
+  showImage(yImage);
+  toggleButtons(true, false, true);
+});
+
+document.getElementById("nextBtn").addEventListener("click", () => {
+  showImage(xImage);
+  toggleButtons(false, true, true);
+});
+
+document.getElementById("origBtn").addEventListener("click", () => {
+  showImage(originalImage);
+  toggleButtons(true, true, false);
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function showCalculation() {
+  const container = document.getElementById("calculationContainer");
+  container.style.display = "block";
+
+  // Always show the table for 25 RPM
+  container.innerHTML = generateTable({
+    testNumber: "2",
+    sample: "316 L stainless steel (Ra = 28 nm)",
+    load: "10 N",
+    speed: "25 RPM",
+    time: "30 min",
+    Wv: "0.562",
+    Δm: "0.001",
+    cof: "0.41±0.06",
+    dmax: "23 µm",
+    SpWr1: "1.3×10⁻³",
+    Wr1: "1.6×10⁻²",
+    Wr2: "1.3×10⁻²"
+  });
+}
+
+function generateTable(data) {
+  return `
+    <table style="width:100%; border-collapse:collapse; margin-top:10px;" border="1">
+      <tr style="background:#eee;">
+        <th>Parameter</th>
+        <th>Value</th>
+      </tr>
+      <tr><td>Sample<br>(Ra = Sample roughness)</td><td>${data.sample}</td></tr>
+      <tr><td>Load</td><td>${data.load}</td></tr>
+      <tr><td>Speed</td><td>${data.speed}</td></tr>
+      <tr><td>Time</td><td>${data.time}</td></tr>
+      <tr><td>Mass Loss<br>Δm = m₁ − m₂</td><td>${data.Δm} g</td></tr>
+      <tr><td>Coefficient of Friction (cof)</td><td>${data.cof}</td></tr>
+      <tr><td>Max Penetration depth (dmax)</td><td>${data.dmax}</td></tr>
+      <tr><td>Specific Wear Rate (Sp. Wr)</td><td>${data.SpWr1} mm³/N·m</td></tr>
+      <tr><td>Wear Rate (Wr)</td><td>${data.Wr1} (mass)</td></tr>
+    </table>
+  `;
+}
+
+
+
+
+
+
+
+
+function showcMessage() {
+  document.getElementById("cMessage").style.display = "block";
+}
+
+
+
+
+function openFormulaModal() {
+  document.getElementById("formulaModal").style.display = "block";
+
+  // 🔁 Ask MathJax to re-typeset formulas inside modal
+  if (window.MathJax) {
+    MathJax.typesetPromise();
+  }
+}
+
+function closeFormulaModal() {
+  document.getElementById("formulaModal").style.display = "none";
+}
