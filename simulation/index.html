@@ -76,27 +76,30 @@
 	  <h2 class="m">Input Parameters:</h2><br>
 	  
 	  <!-- <h3 class="m">Enter the Material (couple Material):</h3><br> -->
-	  <button class="button button1 B " id="moveButton"  >Material  </button>  
-	    <button onclick="displayPanel(0)" id="initialmass">Measure the initial mass of the sample </button>
+	   	    <button onclick="displayPanel(0)" id="initialmass">Measure the initial mass of the sample </button>
+			<div id="initialmassm1" style="display: none; align-content: center;"><b>Initial mass m1 = 16.1445g</b></div>
+	  <button class="button button1 B " id="moveButton"  >Place the sample on platform </button>  
+
 	  <!-- <button class="button button1 B " id="moveButton2"  onclick="toggleButtons()">Material 2</button> -->
 	  <button class="button button1 hidden B" id="moveButton3">Input Ball</button>
 	  <button class="button button1 hidden B" id="moveButton4" >Insert The Ball</button>
 	  <!-- <button class="button button1 hidden" id="moveButton4" >Move Handle</button> -->
-	  <button class="button button1 hidden B" id="moveButton5" >pin on tribometer</button>
+	  <button class="button button1 hidden B" id="moveButton5" >Pin On Tribometer</button>
 	  <button class="button button1 hidden  B" id="moveButton6" >Input Load (10N)</button>
 	  <button class="button button1 hidden B" id="moveButton7" style="cursor: pointer;" >Start Rotation</button>
-	   <button onclick="displayPanel(1)" id="CleanSample">Clean sample</button>
+	   <button onclick="displayPanel(1)" id="CleanSample">Take out the sample and clean it</button>
 	     <button onclick="displayPanel(2)" id="MeasureMass">Measure the mass again </button>
-	  <button class="button button1 hidden  B" id="moveButton8" >Show Output</button>
+		      <b> <p id="panelDescription"></p></b>
+	  <button class="button button1 hidden  B" id="moveButton8" >Optical Profilometry</button>
 	  <button onclick="showDiv()" id="table">Show table</button>
 
 				</div>	
 				 <div class="panel-left" >
-      <img id="panelImage" class="hidden-image" src="..\simulation\calculationImg\initial.png" alt="Display Image" style="width: 300px; height: 300px;margin-left: 50px;"/>
-      <span class="panel-close" onclick="closePanel()">&times;</span>
+      <img id="panelImage" class="hidden-image" src="..\simulation\calculationImg\initial.png" alt="Display Image" style="width: 300px; height: 300px;margin-left: 50px; display: none;"/>
+      <span class="panel-close" onclick="closePanel()" style="display: none;">&times;</span>
 	  <div style="text-align: center; align-content: center; ">
 		<pre><center>
-	  <h1 id="hidetxt">                      Initial Image</h1></center></pre>
+	  <h1 id="hidetxt" style="display: none;">                      Initial Image</h1></center></pre>
 	  </div>
     </div>  
 			</section>
@@ -109,7 +112,7 @@
                 </center>
   <div class="panel-right" style="position:sticky;">
       <h2 id="panelHeading">Volume loss method (Using Optical profilometry)</h2>
-      <p id="panelDescription"></p>
+
     </div>
 
 				<div class="note-important">
@@ -3305,56 +3308,104 @@
 </svg>
 
 <h1 id="out" style="margin-left: 8px;">OUTPUT:</h1>
-<div id="myBox" style="display: none; margin-top: 20px; padding: 20px; background-color: #e6f7ff; border: 1px solid #91d5ff; border-radius: 8px;margin-top: 30px; text-align: center;">
-  <h2 style="color: red;">Results</h2>
+<div id="myBox" style="display: none; margin-top: 30px; padding: 20px; background-color: #e6f7ff; border: 1px solid #91d5ff; border-radius: 8px;">
+  <h2 style="color: red; text-align: center;">Results</h2>
 
-  <table style="margin: 0 auto; border-collapse: collapse; width: 95%; font-size: 17px;">
-    <thead style="background-color: #f0f0f0;">
-      <tr>
-        <th style="border: 1px solid #ccc; padding: 10px;">Test</th>
-        <th style="border: 1px solid #ccc; padding: 10px;">Ra (nm)</th>
-        <th style="border: 1px solid #ccc; padding: 10px;">d<sub>max</sub> (µm)</th>
-        <th style="border: 1px solid #ccc; padding: 10px;">COF</th>
-        <th style="border: 1px solid #ccc; padding: 10px;">Δm (g)</th>
-        <th style="border: 1px solid #ccc; padding: 10px;">Sp. W<sub>r</sub> (Mass Loss) (mm³N⁻¹m⁻¹)</th>
-        <th style="border: 1px solid #ccc; padding: 10px;">W<sub>v</sub> (mm³)</th>
-        <th style="border: 1px solid #ccc; padding: 10px;">Sp. W<sub>r</sub> (Volume Loss) (mm³N⁻¹m⁻¹)</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td style="border: 1px solid #ccc; padding: 10px;">1</td>
-        <td style="border: 1px solid #ccc; padding: 10px;">28</td>
-        <td style="border: 1px solid #ccc; padding: 10px;">58</td>
-        <td style="border: 1px solid #ccc; padding: 10px;">0.40 ± 0.06</td>
-        <td style="border: 1px solid #ccc; padding: 10px;">0.011</td>
-        <td style="border: 1px solid #ccc; padding: 10px;">2.7 × 10<sup>−3</sup></td>
-        <td style="border: 1px solid #ccc; padding: 10px;">0.562</td>
-        <td style="border: 1px solid #ccc; padding: 10px;">1.1 × 10<sup>−3</sup></td>
-      </tr>
-    </tbody>
-  </table>
+  <div style="display: flex; flex-wrap: wrap; gap: 30px; justify-content: space-between;">
+
+    <!-- Table Section -->
+    <div style="flex: 1 1 400px; box-sizing: border-box; overflow-x: auto;">
+      <table style="border-collapse: collapse; width: 100%; font-size: 16px; background-color: white;">
+        <thead style="background-color: #f0f0f0;">
+          <tr>
+            <th style="border: 1px solid #ccc; padding: 10px;">Test</th>
+            <th style="border: 1px solid #ccc; padding: 10px;">Ra (nm)</th>
+            <th style="border: 1px solid #ccc; padding: 10px;">d<sub>max</sub> (µm)</th>
+            <th style="border: 1px solid #ccc; padding: 10px;">COF</th>
+            <th style="border: 1px solid #ccc; padding: 10px;">Δm (g)</th>
+            <th style="border: 1px solid #ccc; padding: 10px;">Sp. W<sub>r</sub> (Mass Loss)</th>
+            <th style="border: 1px solid #ccc; padding: 10px;">W<sub>v</sub> (mm³)</th>
+            <th style="border: 1px solid #ccc; padding: 10px;">Sp. W<sub>r</sub> (Volume Loss)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="border: 1px solid #ccc; padding: 10px;">1</td>
+            <td style="border: 1px solid #ccc; padding: 10px;">28</td>
+            <td style="border: 1px solid #ccc; padding: 10px;">58</td>
+            <td style="border: 1px solid #ccc; padding: 10px;">0.40 ± 0.06</td>
+            <td style="border: 1px solid #ccc; padding: 10px;">0.011</td>
+            <td style="border: 1px solid #ccc; padding: 10px;">2.7 × 10<sup>−3</sup></td>
+            <td style="border: 1px solid #ccc; padding: 10px;">0.562</td>
+            <td style="border: 1px solid #ccc; padding: 10px;">1.1 × 10<sup>−3</sup></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+	  <!-- The hidden section -->
+  <div id="mySection"></div>
+  <button onclick="showSection()">Conclusions</button>
+    <!-- Text Explanation Section -->
+    <div style="flex: 1 1 400px; box-sizing: border-box; font-size: 16px; line-height: 1.6; background-color: #fdfdfd; padding: 10px;">
+      <p><strong>Specific wear rate</strong> can then be calculated using the Archard equation as:</p>
+
+      <p><em>Specific wear rate</em> = (wear volume) / (load × sliding distance)</p>
+
+      <p>or,</p>
+
+      <p><em>Specific wear rate</em> = (mass loss / density) × 1 / (load × sliding distance)</p>
+
+      <p><strong>i.e.,</strong><br>
+        <span style="margin-left: 20px;">Sp. W<sub>r</sub> = Δm / ρ × 1 / (P × S)</span>
+      </p>
+
+      <p><strong>Where,</strong><br>
+        <span style="margin-left: 20px;">S = L × RPM × T</span>
+      </p>
+
+      <p>L = Length of the wear track<br>
+         T = Total time of the wear test</p>
+    </div>
+
+  </div>
 </div>
+
+
 
 <!-- <div id="resultContainer">
 	<img id="material1Photo" src="co01.png" alt="Material 1">
 	<img id="material2Photo" src="co5.1.png" alt="Material 2">
 </div> -->
-<div id="resultSlider" style="display:none; text-align:center; margin-top: 0px; position:relative; height: 100px;">
-	   
-    <h2>Wear Test Result</h2>
-	
-    
-    <img id="slideImage" src="slide5.jpg" alt="Result Slide"
-         style="max-width:90%; height:auto; border:2px solid #ccc; border-radius:10px;
-                box-shadow:0 4px 12px rgba(0,0,0,0.2); margin:20px auto;">
+<div id="resultSlider" style="display:none;text-align: center; margin-top: 0px; position: relative; height: auto;">
+  <h2>Wear Test Result</h2>
+  <!-- Buttons -->
+<button onclick="showProfile('x')">x profile</button>
+<button onclick="showProfile('main')">main view profile</button>
+<button onclick="showProfile('y')">y profile</button>
 
-    <!-- Description -->
-    <p id="slideDescription" style="max-width:90%; margin: 100px auto; font-size: 18px; color: #333;"></p>
+  <!-- X Profile -->
+  <div id="xProfile" style="display: none;">    <img id="slideImage" src="../simulation/output/xprofile.png" alt="Result Slide"
+         style="max-width: 90%; height: auto; border: 2px solid #ccc; border-radius: 10px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.2); margin: 20px auto;"></div>
 
-    <!-- Next Button -->
-  
+  <!-- Y Profile -->
+  <div id="yProfile" style="display: none;">    <img id="slideImage" src="./output/yprofile.png" alt="Result Slide"
+         style="max-width: 90%; height: 300px; border: 2px solid #ccc; border-radius: 10px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.2); margin: 20px auto;"></div>
+
+  <!-- Main Image -->
+  <div id="imageMain">
+    <img id="slideImage" src="./output/mainprofile2.png" alt="Result Slide"
+         style="max-width: 90%; height: 300px; border: 2px solid #ccc; border-radius: 10px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.2); margin: 20px auto;">
+  </div>
+
+  <!-- Description -->
+  <p id="slideDescription" style="max-width: 90%; margin: 20px auto; font-size: 18px; color: #333;"></p>
+
+
 </div>
+
 
 
 
@@ -3366,47 +3417,40 @@
 <!-- this is changed code  -->
 
 <script>
-    const totalSlides = 5; // Update if you have more/less slides
-    let currentSlide = 5;
-
-    // Descriptions for each slide (index 0 = slide1, index 1 = slide2, etc.)
-    const slideDescriptions = [
-        "Slide 1: Introduction to the Wear Test and Objective.",
-        "Slide 2: Mass loss method and initial weight measurement.",
-        "Slide 3: Perform the test and measure post-test weight.",
-        "Slide 4: Volume loss using wear track or profilometry.",
-        " Final results, graphs, and conclusions."
-    ];
-
-    // Show result button click
-    document.getElementById("moveButton8").addEventListener("click", () => {
-        document.getElementById("resultSlider").style.display = "block";
-        currentSlide = 5;
-        updateSlide();
-    });
-
-    // Update slide + description
-    function updateSlide() {
-        document.getElementById("slideImage").src = `slide${currentSlide}.jpg`;
-        document.getElementById("slideDescription").innerText = slideDescriptions[currentSlide - 1];
-    }
-
-    // Next button logic
-    function nextSlide() {
-        if (currentSlide < totalSlides) {
-            currentSlide++;
-            updateSlide();
-        } else {
-            alert("This is the last slide.");
-        }
-    }
 	function showDiv() {
     document.getElementById("myBox").style.display = "block";
 	document.getElementById("panelImage").style.display="none";
 	document.getElementById("resultSlider").style.display = "none";
 	document.getElementsByClassName("panel-close").style.display = "none";
-  }
-  
+  };
+function showProfile(profile) {
+  const xProfile = document.getElementById("xProfile");
+  const yProfile = document.getElementById("yProfile");
+  const imageMain = document.getElementById("imageMain");
+
+  // Hide all
+  xProfile.style.display = "none";
+  yProfile.style.display = "none";
+  imageMain.style.display = "none";
+
+  // Show only selected
+  if (profile === "x") xProfile.style.display = "block";
+  if (profile === "y") yProfile.style.display = "block";
+  if (profile === "main") imageMain.style.display = "block";
+}
+    function showSection() {
+      const section = document.getElementById("mySection");
+      section.style.display = "block";
+      section.innerHTML = `
+        <h3>By the end of this experiment students should be able to :</h3>
+        <ul>
+          <li>estimate mass loss and volume loss </li>
+          <li>understand the concept of wear rate </li>
+          <li>calculate wear rate
+</li>
+        </ul>
+      `;
+    }
 </script>
 
 

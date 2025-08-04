@@ -2,7 +2,6 @@ const slideshowImage = document.querySelector('.discImage');
 // changedcode
 document.getElementById("CleanSample").style.display="none";
 document.getElementById("MeasureMass").style.display="none";
-document.getElementById("initialmass").style.display="none";
 document.getElementById("table").style.display="none";
 
 
@@ -83,7 +82,6 @@ const moveButton = document.getElementById('moveButton');
         const targetRect = targetObject.getBoundingClientRect();
         // const targetX = targetRect.left;
         // const targetY = targetRect.top;
-document.getElementById("initialmass").style.display="block";
         // Move the object to the target position
         objectToMove.style.transition = 'transform 2s ease'; // Add a smooth transition effect
         objectToMove.style.transform = `translate(-439px, -272px)`;
@@ -191,12 +189,13 @@ moveButton6.addEventListener('click', moveObject6);
 document.addEventListener('DOMContentLoaded', function () {
     const buttons = document.querySelectorAll('button');
     
-    function revealNextButton(currentButtonIndex) {
-        if (currentButtonIndex < buttons.length - 1) {
-            buttons[currentButtonIndex].disabled = true;
-            buttons[currentButtonIndex + 1].classList.remove('hidden');
-        }
+  function revealNextButton(currentButtonIndex) {
+    // Reveal the next button in sequence, if available
+    if (currentButtonIndex < buttons.length - 1) {
+        buttons[currentButtonIndex + 1].classList.remove('hidden');
     }
+}
+
 
     for (let i = 0; i < buttons.length; i++) {
         buttons[i].addEventListener('click', function () {
@@ -269,8 +268,11 @@ function stopAnimation() {
 moveButton7.addEventListener('click', () => {
     startAnimation();
     setTimeout(stopAnimation, 5000); 
-    document.getElementById("CleanSample").style.display="block";// Stop after 5 seconds (5000 milliseconds)
-    document.getElementById("MeasureMass").style.display="block";
+setTimeout(() => {
+    document.getElementById("CleanSample").style.display = "block";
+    document.getElementById("MeasureMass").style.display = "block";
+}, 5000); // 5000 milliseconds = 5 seconds
+
 });
 
 moveButton7.addEventListener('click', startImageSlideshow);
@@ -284,7 +286,9 @@ const material2Photo = document.getElementById('material2Photo');
 
 // Function to show the result photo based on the choice of material
 function showResult() {
+    document.getElementById("resultSlider").style.display="block";
     document.getElementById("table").style.display="block";
+        document.getElementById("myBox").style.display="none";
         document.getElementById("panelImage").style.display="none";
     if (flag_material1) {
 
@@ -374,7 +378,7 @@ const items = [
   {
     title: "Mass Comparison",
     image: "../simulation/calculationImg/m2.png",
-    description: "m2 = 16.1350 g | Δm = 0.0095 g"
+    description: "m2 = 16.1350 g ( Δm = m1-m2 = 0.0095 g)"
   }
 ];
 
@@ -385,7 +389,7 @@ const panelDesc = document.getElementById("panelDescription");
 
 function displayPanel(index) {
   const selected = items[index];
-
+document.getElementById("initialmassm1").style.display="block";
   // Hide image first
   panelImg.classList.add("hidden-image");
 
