@@ -76,7 +76,7 @@
 	  <h2 class="m">Input Parameters:</h2><br>
 	  
 	  <!-- <h3 class="m">Enter the Material (couple Material):</h3><br> -->
-	   	    <button onclick="displayPanel(0)" id="initialmass">Measure the initial mass of the sample </button>
+	   	    <button class="button button1 B "onclick="display1()" id="initialmass">Measure the initial mass of the sample </button>
 			<div id="initialmassm1" style="display: none; align-content: center;"><b>Initial mass m1 = 16.1445g</b></div>
 	  <button class="button button1 B " id="moveButton"  >Place the sample on platform </button>  
 
@@ -86,22 +86,31 @@
 	  <!-- <button class="button button1 hidden" id="moveButton4" >Move Handle</button> -->
 	  <button class="button button1 hidden B" id="moveButton5" >Pin On Tribometer</button>
 	  <button class="button button1 hidden  B" id="moveButton6" >Input Load (10N)</button>
-	  <button class="button button1 hidden B" id="moveButton7" style="cursor: pointer;" >Start Rotation</button>
-	   <button onclick="displayPanel(1)" id="CleanSample">Take out the sample and clean it</button>
-	     <button onclick="displayPanel(2)" id="MeasureMass">Measure the mass again </button>
-		      <b> <p id="panelDescription"></p></b>
+	  <button class="button button1 hidden B" id="moveButton7" style="cursor: pointer;" >Start Rotation for 30 minutes</button>
+	   <button class="button button1 B " onclick="displayPanel(0)" id="CleanSample">Take out the sample and clean it</button>
+	     <button class="button button1 B " onclick="displayPanel(1)" id="MeasureMass">Measure the mass again </button>
+		      <b> <p id="panelDescription" style="display: none;"></p></b>
 	  <button class="button button1 hidden B" id="moveButton8" onclick="showResult()">Perform Optical Profilometry</button>
-	  <button onclick="showDiv()" id="table">Show table</button>
-	  <button class="button button1 B" id="calculationBtn" onclick="showCalculation()">Calculation</button>
+	  				<button class="button button1 B hidden" id="formula" onclick="openFormulaModal()">Formulae Used</button>
+	  <button  class="button button1 B "onclick="showDiv()" id="table">Show table</button>
+	  <button class="button button1 B" id="calculationBtn" onclick="showCalculation()" style="display: none;">Calculation</button>
 
 					<!-- <button class="button button1 B" id="reverseBtn">Reverse</button> -->
 					<button class="button button1 B hidden" id="cBtn" onclick="showcMessage()">Conclusion</button>
-					<div id="cMessage" class="message-text"
-						style="display: none; margin-top: 5px; font-size:20px;font-weight: bold;">
-						As the sliding speed (RPM) increases, the wear rate of the material also increases.
+
+
 					</div>
 					<div id="calculationContainer" style="display:none; margin-top:-10px;"></div>
+					<div id="cMessage" class="message-text"
+						style="display: none; margin-top: 20px; font-size:20px; border: 2px solid black;background-color: white;">
+						<h7><u><b>Conclusions of the experiment:</b></u></h7>
 
+
+<li>Estimate mass loss </li>
+
+<li>Understand the concept of wear rate </li>
+
+<li>Calculate wear rate</li>
 				</div>	
 				 <div class="panel-left" >
       <img id="panelImage" class="hidden-image" src="..\simulation\calculationImg\initial.png" alt="Display Image" style="width: 300px; height: 300px;margin-left: 50px; display: none;"/>
@@ -119,12 +128,12 @@
                         PIN-ON-DISC TRIBOMETER
                     </h4>
                 </center>
-				<button class="next-slide-btn" onclick="openFormulaModal()">Formulae Used</button>
+
 				
-  <div class="panel-right" style="position:sticky;">
+   <!-- <div class="panel-right" style="position:sticky;">
       <h2 id="panelHeading">Volume loss method (Using Optical profilometry)</h2>
 
-    </div>
+    </div> -->
 
 				<div class="note-important">
     <strong>Important Note:</strong><br><br>
@@ -133,7 +142,7 @@
 
   </div>
 				<div style="height:100% ; width:100%; position: relative;" >
-					<div id="calculationContainer" style="display:none; margin-top:-10px;"></div>
+					<div id="calculationContainer" style="display:none; margin-top:-10px; background-color: beige;"></div>
 				<!-- SVG IMAGE PART -->
 				<div id="elementName"></div>
                 <svg id="svgContainer" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -3325,21 +3334,21 @@
 <h1 id="out" style="margin-left: 8px;">OUTPUT:</h1>
 <div id="resultContainer">
 					<div id="imageWrapper">
-						<div id="imageLabel"><b>Speed: 25 RPM</b></div>
-						<img class="materialPhoto rpm25" src="../simulation/output/out1.png" alt="Original" data-label="Speed: 25 RPM"
-	data-desc="Sample: 316 L stainless steel (Ra= 28 nm)&#10;Counter body: stainless steel&#10;Load: 10N&#10;Speed: 25 RPM&#10;Time: 30 min
+						<div id="imageLabel"><b>Speed: 50 RPM</b></div>
+						<img class="materialPhoto rpm25" src="../simulation/output/mainprofile.png" alt="Original" data-label="Speed: 50 RPM"
+	data-desc="Sample: 316 L stainless steel (Ra= 28 nm)&#10;Counter body: stainless steel&#10;Load: 20N&#10;Speed: 50 RPM&#10;Time: 30 min
 X-Profile: is a cross-sectional line graph that shows the variation in surface height (Z-axis) along a horizontal line (X-axis) across the circular wear track.
 Y-Profile: is a cross-sectional line graph that shows the variation in surface height (Z-axis) along a vertical line (Y-axis) across the wear track.">
 
-<img class="materialPhoto rpm25" src="../simulation/output/out11.png" alt="X Profile" data-label="X-Profile"
+<img class="materialPhoto rpm25" src="../simulation/output/d1 (Youtube Banner) (3).png" alt="X Profile" data-label="X-Profile"
 	data-desc="ΔX: Represents the distance between the two vertical markers Red line (R) on the left Green line (M) on the right
-	ΔZ: is the difference in height between The horizontal green line (surface level) The lowest point of the blue profile curve between the red and green lines
-	ΔX = -2.4584 mm&#10;ΔZ = -23.0632 μm">
+	ΔZ: is the difference inheight between The horizontal green line (surface level) The lowest point of the blue profile curve between the red and green lines
+	ΔX = 2.5159 mm&#10;ΔZ = dmax = 58.0802 μm">
 
-<img class="materialPhoto rpm25" src="../simulation/output/out12.png" alt="Y Profile" data-label="Y-Profile"
+<img class="materialPhoto rpm25" src="../simulation/output/d1 (Youtube Banner) (2).png" alt="Y Profile" data-label="Y-Profile"
 	data-desc="ΔX: Represents the distance between the two vertical markers Red line (R) on the left Green line (M) on the right
 	ΔZ: is the difference in height between The horizontal green line (surface level) The lowest point of the blue profile curve between the red and green lines
-	ΔX = -2.352 mm&#10;ΔZ = -21.0612 μm"">
+	ΔX = 2.3179 mm&#10;ΔZ = dmax = 58.5394 μm " >
 
 
 
@@ -3417,31 +3426,31 @@ function showProfile(profile) {
 
 			<div class="formula-box">
 				<p><b>1. Volume Loss:</b></p>
-				<p>$$ V = \frac{\Delta m}{\rho} $$</p>
+				<p>$$ \Delta V = \frac{\Delta m}{\rho} $$</p>
 				<ul>
-					<li>\( \Delta m = m_1 - m_2 \) : Mass loss (g)</li>
-					<li>\( \rho \) : Density (g/cm³)</li>
-					<li>\( V \) : Volume loss (cm³)</li>
+					<li>\( \Delta m = m_1 - m_2 \) </li>
+					<li>\( \rho \) : Density  of Stainless Steel (g/cm³) = 0.0077g/mm³</li>
+					<li>\( \Delta V \) : Volume loss (mm³)</li>
 				</ul>
 			</div>
 
 			<div class="formula-box">
 				<p><b>2. Specific Wear Rate:</b></p>
-				<p>$$ k = \frac{V}{F \times L} = \frac{\Delta m}{\rho \times F \times L} $$</p>
+				<p>$$ k = \frac{\Delta V   }{F \times L} = \frac{\Delta m}{\rho \times F \times L} $$</p>
 				<ul>
 					<li>\( F \) : Applied load (N)</li>
 					<li>\( L \) : Sliding distance (m)</li>
-					<li>\( k \) : Specific wear rate (cm³/N·m)</li>
+					<li>\( k \) : Specific wear rate (mm³/N·m)</li>
 				</ul>
 			</div>
 
 			<div class="formula-box">
 				<p><b>3. Unit of Specific Wear Rate:</b></p>
-				<p>$$ \text{Unit of } k = \frac{\text{cm}^3}{\text{N} \cdot \text{m}} $$</p>
+				<p>$$ \text{Unit of } k = \frac{\text{mm}^3}{\text{N} \cdot \text{m}} $$</p>
 			</div>
 			<div class="formula-box">
 				<p><b>4. Mass Loss:</b></p>
-				<p>$$ \Delta m = m_1 - m_2 $$</p>
+				<p>$$ \Delta m = m_1 - m_2 $$ </p>
 				<ul>
 					<li>\( m_1 \): Initial mass before test</li>
 					<li>\( m_2 \): Final mass after test</li>
@@ -3449,32 +3458,26 @@ function showProfile(profile) {
 				</ul>
 
 			</div>
+		<div class="formula-box">
+  <p><b>5. Sliding Distance:</b></p>
+  <p>$$ L = \pi D N t $$</p>
+  <ul>
+    <li>\( D \): Average diameter of wear track (m)</li>
+    <li>\( D = \frac{D_1 + D_2}{2} \)</li>
+    <li>\( D_1 \): Diameter measured using X-Profile</li>
+    <li>\( D_2 \): Diameter measured using Y-Profile</li>
+    <li>\( N \): Rotational speed (revolutions per second)</li>
+    <li>\( t \): Time (s)</li>
+    <li>\( L \): Sliding distance (m)</li>
+  </ul>
+</div>
 			<div class="formula-box">
-				<p><b>5. Sliding Distance:</b></p>
-				<p>$$ L = 2 \pi r N t $$</p>
-				<ul>
-					<li>\( r \): Radius of disc (m)</li>
-					<li>\( N \): Rotational speed (revolutions per second)</li>
-					<li>\( t \): Time (s)</li>
-					<li>\( L \): Sliding distance (m)</li>
-				</ul>
-
-			</div>
-			<div class="formula-box">
-				<p><b>6. Wear Rate:</b></p>
-				<p>$$ \text{Wear Rate} = \frac{V}{L} $$</p>
-				<ul>
-					<li>\( V \): Volume loss (cm³)</li>
-					<li>\( L \): Sliding distance (m)</li>
-				</ul>
-
-			</div>
-			<div class="formula-box">
-				<p><b>7. Coefficient of Friction:</b></p>
+				<p><b>6. Coefficient of Friction:</b></p>
 				<p>$$ \mu = \frac{F_{\text{friction}}}{F_{\text{normal}}} $$</p>
 				<ul>
 					<li>\( F_{\text{friction}} \): Frictional force (N)</li>
 					<li>\( F_{\text{normal}} \): Normal load (N)</li>
+					<li>Obtained from Tribometer Data</li>
 				</ul>
 			</div>
 		</div>

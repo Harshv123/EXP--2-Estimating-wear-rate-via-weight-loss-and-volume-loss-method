@@ -46,7 +46,7 @@ function updateSlideshowImage() {
 
 function startImageSlideshow() {
     clearInterval(slideshowIntervalId);
-    slideshowIntervalId = setInterval(updateSlideshowImage, 2);
+    slideshowIntervalId = setInterval(updateSlideshowImage, 0.1);
 
     setTimeout(() => {
         clearInterval(slideshowIntervalId);
@@ -271,6 +271,8 @@ moveButton7.addEventListener('click', () => {
 setTimeout(() => {
     document.getElementById("CleanSample").style.display = "block";
     document.getElementById("MeasureMass").style.display = "block";
+        document.getElementById("calculationBtn").style.display = "block";
+
 }, 5000); // 5000 milliseconds = 5 seconds
 
 });
@@ -365,38 +367,37 @@ document.getElementById("moveButton7").addEventListener("click", function() {
 //   this is the new code 
 
 const items = [
-  {
-    title: "Mass loss method",
-    image: "../simulation/calculationImg/m1.png",
-    description: "m1 = 16.1445 g"
-  },
+
   {
     title: "Sample clean",
     image: "../simulation/calculationImg/clean.png",
-    description: "Clean the sample from all the debris."
+    description: "The sample is clean"
   },
   {
     title: "Mass Comparison",
     image: "../simulation/calculationImg/m2.png",
-    description: "m2 = 16.1350 g ( Δm = m1-m2 = 0.0095 g)"
+    description: "m2 = 16.1350 g  <br>Δm = m1-m2 = 0.0095 g"
   }
 ];
 
 const panel = document.getElementById("contentPanel");
 const panelImg = document.getElementById("panelImage");
-const panelHeading = document.getElementById("panelHeading");
+// const panelHeading = document.getElementById("panelHeading");
 const panelDesc = document.getElementById("panelDescription");
 
 function displayPanel(index) {
   const selected = items[index];
-document.getElementById("initialmassm1").style.display="block";
+  
+// document.getElementById("initialmassm1").style.display="block";
   // Hide image first
   panelImg.classList.add("hidden-image");
 
   // Set text immediately
-  panelHeading.textContent = selected.title;
-  panelDesc.textContent = selected.description;
+  // panelHeading.textContent = selected.title;
+panelDesc.innerHTML = selected.description;
 
+
+document.getElementById("panelDescription").style.display="block";
   // Small delay to allow class to apply before changing image
   setTimeout(() => {
     panelImg.src = selected.image;
@@ -443,9 +444,9 @@ function showResult() {
   selectedRPM = "25"; // fixed RPM
   document.querySelectorAll('.materialPhoto').forEach(img => img.style.display = "none");
 
-  originalImage = document.querySelector('img[src="../simulation/output/out1.png"]');
-  xImage = document.querySelector('img[src="../simulation/output/out11.png"]');
-  yImage = document.querySelector('img[src="../simulation/output/out12.png"]');
+  originalImage = document.querySelector('img[src="../simulation/output/mainprofile.png"]');
+  xImage = document.querySelector('img[src="../simulation/output/d1 (Youtube Banner) (3).png"]');
+  yImage = document.querySelector('img[src="../simulation/output/d1 (Youtube Banner) (2).png"]');
 
   showImage(originalImage); // Show original image by default
   toggleButtons(true, true, false); // Enable X and Y profile buttons
@@ -490,8 +491,9 @@ document.getElementById("origBtn").addEventListener("click", () => {
 
 
 
-
-
+function display1(){
+  document.getElementById("initialmassm1").style.display="block";
+};
 
 
 
@@ -509,39 +511,30 @@ function showCalculation() {
   // Always show the table for 25 RPM
   container.innerHTML = generateTable({
     testNumber: "2",
-    sample: "316 L stainless steel (Ra = 28 nm)",
-    load: "10 N",
-    speed: "25 RPM",
-    time: "30 min",
-    Wv: "0.562",
-    Δm: "0.001",
-    cof: "0.41±0.06",
-    dmax: "23 µm",
-    SpWr1: "1.3×10⁻³",
-    Wr1: "1.6×10⁻²",
-    Wr2: "1.3×10⁻²"
+    sample: "28",
+    load: "58 µm",
+  SpWr1:"2.7×10⁻³",
+    Δm: "0.01",
+    cof: "0.40±0.06",
   });
 }
 
 function generateTable(data) {
   return `
-    <table style="width:100%; border-collapse:collapse; margin-top:10px;" border="1">
-      <tr style="background:#eee;">
+    <table style="width:100%;height:300px; border-collapse:collapse; margin-top:10px;" border="2px solid black ;padding:5px;">
+      <tr style="background:#eee; text-align:center; vertical-align:middle;">
         <th>Parameter</th>
         <th>Value</th>
       </tr>
-      <tr><td>Sample<br>(Ra = Sample roughness)</td><td>${data.sample}</td></tr>
-      <tr><td>Load</td><td>${data.load}</td></tr>
-      <tr><td>Speed</td><td>${data.speed}</td></tr>
-      <tr><td>Time</td><td>${data.time}</td></tr>
-      <tr><td>Mass Loss<br>Δm = m₁ − m₂</td><td>${data.Δm} g</td></tr>
-      <tr><td>Coefficient of Friction (cof)</td><td>${data.cof}</td></tr>
-      <tr><td>Max Penetration depth (dmax)</td><td>${data.dmax}</td></tr>
-      <tr><td>Specific Wear Rate (Sp. Wr)</td><td>${data.SpWr1} mm³/N·m</td></tr>
-      <tr><td>Wear Rate (Wr)</td><td>${data.Wr1} (mass)</td></tr>
+      <tr style="text-align:center; vertical-align:middle;"><td>Sample<br>(Ra = Sample roughness)</td><td>${data.sample}</td></tr>
+      <tr style="text-align:center; vertical-align:middle;"><td>dmax.</td><td>${data.load}</td></tr>
+      <tr style="text-align:center; vertical-align:middle;"><td>Coefficient of Friction (cof)</td><td>${data.cof}</td></tr>
+      <tr style="text-align:center; vertical-align:middle;"><td>Specific Wear Rate (Sp. Wr)</td><td>${data.SpWr1} mm³/N·m</td></tr>
+      <tr style="text-align:center; vertical-align:middle;"><td>Mass loss (Δm)</td><td>${data.Δm} g</td></tr>
     </table>
   `;
 }
+
 
 
 
