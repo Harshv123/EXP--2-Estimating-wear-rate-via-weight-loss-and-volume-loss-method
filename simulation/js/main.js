@@ -2,7 +2,6 @@ const slideshowImage = document.querySelector('.discImage');
 // changedcode
 document.getElementById("CleanSample").style.display="none";
 document.getElementById("MeasureMass").style.display="none";
-document.getElementById("initialmass").style.display="none";
 document.getElementById("table").style.display="none";
 
 
@@ -47,7 +46,7 @@ function updateSlideshowImage() {
 
 function startImageSlideshow() {
     clearInterval(slideshowIntervalId);
-    slideshowIntervalId = setInterval(updateSlideshowImage, 2);
+    slideshowIntervalId = setInterval(updateSlideshowImage, 0.1);
 
     setTimeout(() => {
         clearInterval(slideshowIntervalId);
@@ -83,7 +82,6 @@ const moveButton = document.getElementById('moveButton');
         const targetRect = targetObject.getBoundingClientRect();
         // const targetX = targetRect.left;
         // const targetY = targetRect.top;
-document.getElementById("initialmass").style.display="block";
         // Move the object to the target position
         objectToMove.style.transition = 'transform 2s ease'; // Add a smooth transition effect
         objectToMove.style.transform = `translate(-439px, -272px)`;
@@ -191,12 +189,13 @@ moveButton6.addEventListener('click', moveObject6);
 document.addEventListener('DOMContentLoaded', function () {
     const buttons = document.querySelectorAll('button');
     
-    function revealNextButton(currentButtonIndex) {
-        if (currentButtonIndex < buttons.length - 1) {
-            buttons[currentButtonIndex].disabled = true;
-            buttons[currentButtonIndex + 1].classList.remove('hidden');
-        }
+  function revealNextButton(currentButtonIndex) {
+    // Reveal the next button in sequence, if available
+    if (currentButtonIndex < buttons.length - 1) {
+        buttons[currentButtonIndex + 1].classList.remove('hidden');
     }
+}
+
 
     for (let i = 0; i < buttons.length; i++) {
         buttons[i].addEventListener('click', function () {
@@ -269,8 +268,13 @@ function stopAnimation() {
 moveButton7.addEventListener('click', () => {
     startAnimation();
     setTimeout(stopAnimation, 5000); 
-    document.getElementById("CleanSample").style.display="block";// Stop after 5 seconds (5000 milliseconds)
-    document.getElementById("MeasureMass").style.display="block";
+setTimeout(() => {
+    document.getElementById("CleanSample").style.display = "block";
+    document.getElementById("MeasureMass").style.display = "block";
+        document.getElementById("calculationBtn").style.display = "block";
+
+}, 5000); // 5000 milliseconds = 5 seconds
+
 });
 
 moveButton7.addEventListener('click', startImageSlideshow);
@@ -284,7 +288,9 @@ const material2Photo = document.getElementById('material2Photo');
 
 // Function to show the result photo based on the choice of material
 function showResult() {
+    document.getElementById("resultSlider").style.display="block";
     document.getElementById("table").style.display="block";
+        document.getElementById("myBox").style.display="none";
         document.getElementById("panelImage").style.display="none";
     if (flag_material1) {
 
@@ -361,38 +367,37 @@ document.getElementById("moveButton7").addEventListener("click", function() {
 //   this is the new code 
 
 const items = [
-  {
-    title: "Mass loss method",
-    image: "../simulation/calculationImg/m1.png",
-    description: "m1 = 16.1445 g"
-  },
+
   {
     title: "Sample clean",
     image: "../simulation/calculationImg/clean.png",
-    description: "Clean the sample from all the debris."
+    description: "The sample is clean"
   },
   {
     title: "Mass Comparison",
     image: "../simulation/calculationImg/m2.png",
-    description: "m2 = 16.1350 g | Δm = 0.0095 g"
+    description: "m2 = 16.1350 g  <br>Δm = m1-m2 = 0.0095 g"
   }
 ];
 
 const panel = document.getElementById("contentPanel");
 const panelImg = document.getElementById("panelImage");
-const panelHeading = document.getElementById("panelHeading");
+// const panelHeading = document.getElementById("panelHeading");
 const panelDesc = document.getElementById("panelDescription");
 
 function displayPanel(index) {
   const selected = items[index];
-
+  
+// document.getElementById("initialmassm1").style.display="block";
   // Hide image first
   panelImg.classList.add("hidden-image");
 
   // Set text immediately
-  panelHeading.textContent = selected.title;
-  panelDesc.textContent = selected.description;
+  // panelHeading.textContent = selected.title;
+panelDesc.innerHTML = selected.description;
 
+
+document.getElementById("panelDescription").style.display="block";
   // Small delay to allow class to apply before changing image
   setTimeout(() => {
     panelImg.src = selected.image;
@@ -409,4 +414,151 @@ function displayPanel(index) {
 
 function closePanel() {
   panel.classList.add("panel-hidden");
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+let selectedRPM = null;
+  let xImage = null;
+  let yImage = null;
+  let originalImage = null;
+
+  function selectRPM(rpm) {
+    selectedRPM = rpm;
+    document.getElementById("moveButton8").classList.remove("hidden");
+  }
+function showResult() {
+  selectedRPM = "25"; // fixed RPM
+  document.querySelectorAll('.materialPhoto').forEach(img => img.style.display = "none");
+
+  originalImage = document.querySelector('img[src="../simulation/output/mainprofile.png"]');
+  xImage = document.querySelector('img[src="../simulation/output/d1 (Youtube Banner) (3).png"]');
+  yImage = document.querySelector('img[src="../simulation/output/d1 (Youtube Banner) (2).png"]');
+
+  showImage(originalImage); // Show original image by default
+  toggleButtons(true, true, false); // Enable X and Y profile buttons
+  document.getElementById("resultContainer").style.display = "block";
+}
+
+
+  function showImage(img) {
+    document.querySelectorAll('.materialPhoto').forEach(i => i.style.display = "none");
+    if (img) {
+      img.style.display = "block";
+      document.getElementById("imageLabel").innerHTML = `<b>${img.dataset.label}</b>`;
+      document.getElementById("imageDescription").innerText = img.dataset.desc;
+    }
+  }
+
+  function toggleButtons(xEnabled, yEnabled, origEnabled) {
+    document.getElementById("nextBtn").disabled = !xEnabled;
+    document.getElementById("prevBtn").disabled = !yEnabled;
+    document.getElementById("origBtn").disabled = !origEnabled;
+  }
+
+  document.getElementById("prevBtn").addEventListener("click", () => {
+  showImage(yImage);
+  toggleButtons(true, false, true);
+});
+
+document.getElementById("nextBtn").addEventListener("click", () => {
+  showImage(xImage);
+  toggleButtons(false, true, true);
+});
+
+document.getElementById("origBtn").addEventListener("click", () => {
+  showImage(originalImage);
+  toggleButtons(true, true, false);
+});
+
+
+
+
+
+
+
+
+function display1(){
+  document.getElementById("initialmassm1").style.display="block";
+};
+
+
+
+
+
+
+
+
+
+
+function showCalculation() {
+  const container = document.getElementById("calculationContainer");
+  container.style.display = "block";
+
+  // Always show the table for 25 RPM
+  container.innerHTML = generateTable({
+    testNumber: "2",
+    sample: "28",
+    load: "58 µm",
+  SpWr1:"2.7×10⁻³",
+    Δm: "0.01",
+    cof: "0.40±0.06",
+  });
+}
+
+function generateTable(data) {
+  return `
+    <table style="width:100%;height:300px; border-collapse:collapse; margin-top:10px;" border="2px solid black ;padding:5px;">
+      <tr style="background:#eee; text-align:center; vertical-align:middle;">
+        <th>Parameter</th>
+        <th>Value</th>
+      </tr>
+      <tr style="text-align:center; vertical-align:middle;"><td>Sample<br>(Ra = Sample roughness)</td><td>${data.sample}</td></tr>
+      <tr style="text-align:center; vertical-align:middle;"><td>dmax.</td><td>${data.load}</td></tr>
+      <tr style="text-align:center; vertical-align:middle;"><td>Coefficient of Friction (cof)</td><td>${data.cof}</td></tr>
+      <tr style="text-align:center; vertical-align:middle;"><td>Specific Wear Rate (Sp. Wr)</td><td>${data.SpWr1} mm³/N·m</td></tr>
+      <tr style="text-align:center; vertical-align:middle;"><td>Mass loss (Δm)</td><td>${data.Δm} g</td></tr>
+    </table>
+  `;
+}
+
+
+
+
+
+
+
+
+
+function showcMessage() {
+  document.getElementById("cMessage").style.display = "block";
+}
+
+
+
+
+function openFormulaModal() {
+  document.getElementById("formulaModal").style.display = "block";
+
+  // 🔁 Ask MathJax to re-typeset formulas inside modal
+  if (window.MathJax) {
+    MathJax.typesetPromise();
+  }
+}
+
+function closeFormulaModal() {
+  document.getElementById("formulaModal").style.display = "none";
 }
